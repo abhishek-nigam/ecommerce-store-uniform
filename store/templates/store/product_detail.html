@@ -1,0 +1,104 @@
+{% extends 'base_template.html' %}
+{% load staticfiles %}
+
+{% block head %}
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
+{% endblock %}
+
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+
+        <div class="col-md-6">
+            <div id="productImagesCarousel" class="carousel slide" data-ride="carousel">
+
+                <ol class="carousel-indicators">
+                    <li data-target="#productImagesCarousel" data-slide-to="0" class="active"></li>
+                    <li data-target="#productImagesCarousel" data-slide-to="1"></li>
+                </ol>
+
+                <div class="carousel-inner">
+                    <div class="carousel-item active">
+                        <img src="{% if product.image1_link %}{{ product.image1_link }}{% else %}{% static 'img/no_image.jpeg' %}{% endif %}" alt="" class="d-block w-100">
+                    </div>
+                    {% if product.image2_link %}
+                    <div class="carousel-item">
+                        <img src="{{ product.image2_link }}" alt="" class="d-block w-100">
+                    </div>
+                    {% endif %}
+                </div>
+
+                <a class="carousel-control-prev" href="#productImagesCarousel" role="button" data-slide="prev">
+                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </a>
+                <a class="carousel-control-next" href="#productImagesCarousel" role="button" data-slide="next">
+                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </a>
+
+            </div>
+            <br>
+        </div><!-- images carousel half col -->
+
+        <div class="col-md-6">
+            
+            <h4>{{ product.title }}</h4>
+            <h6>{{ product.school.name }}</h6>
+
+            <br>
+
+            <span class="product-detail-availability {% if product.is_available %}product-detail-is-available{% else %}product-detail-is-not-available{% endif %}">{% if product.is_available %}Available{% else %}Un-Available{% endif %}</span>            
+
+            <br><br>
+
+            <h6>Category:</h6>
+            <h5>{{ product.category.name }}</h5>
+
+            {% if product.description %}
+            <br>
+            <h6>Description:</h6>
+            <p>{{ product.description }}</p>
+            {% endif %}
+
+            <br>
+
+            <div class="table-responsive">
+                <table class="table table-sm">
+                    <thead>
+                        <tr>
+                            <th>Size</th>
+                            <th>Price(per Item)</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for instance in instances %}
+                        <tr>
+                            <td>{{ instance.size }}</td>
+                            <td>{{ instance.price }}</td>
+                            <td><a class="btn btn-outline-success btn-sm buy_button" data-instance="{{ instance.instance_id }}">Buy this!</a></td>
+                        </tr>
+                        {% empty %}
+                        <tr>
+                            <td colspan="3">No size available right now</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div><!-- end responsive table -->
+
+
+        </div><!-- product info carousel half col -->
+
+    </div><!-- end top row -->
+</div><!-- end top container -->
+
+{% endblock %}
+
+{% block bodyend %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+<script src="{% static 'js/product_detail_script.js' %}"></script>
+{% endblock %}

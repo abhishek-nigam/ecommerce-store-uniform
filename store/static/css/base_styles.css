@@ -1,0 +1,31 @@
+/*
+    ===================
+    Product List Styles
+    ===================
+
+*/
+.product-list-item {
+  height: 265px;
+  border: 1px solid #CCC;
+  border-radius: 2px; }
+  .product-list-item .product-list-item-text-container h6 {
+    font-family: 'Alegreya Sans', sans-serif; }
+
+/*
+    =====================
+    Product Detail Styles
+    =====================
+*/
+.product-detail-availability {
+  display: inline-block;
+  color: #fff;
+  padding: 5px;
+  border-radius: 3px; }
+
+.product-detail-is-available {
+  background: green; }
+
+.product-detail-is-not-available {
+  background: darkred; }
+
+/*# sourceMappingURL=base_styles.css.map */

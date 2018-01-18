@@ -1,0 +1,62 @@
+{% extends 'base_template.html' %}
+{% load staticfiles %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+
+        <aside class="d-none d-sm-block col-sm-4 col-md-3">
+
+            <div class="list-group">
+                <a href="{% url 'product-list' %}{% if query %}?query={{ query }}{% endif %}" class="list-group-item list-group-item-action {% if category_query %}{% else %}active{% endif %}">All categories</a>
+                {% for category in categories %}
+                <a href="{{ request.path }}?category={{ category.name }}{% if query %}&query={{ query }}{% endif %}" class="list-group-item list-group-item-action {% if category_query %}{% ifequal category.name category_query %}active{% endifequal %}{% endif %}">{{ category.name }}</a>
+                {% endfor %}
+            </div>
+
+            <br>
+
+            <form action="" method="get">
+                <div class="form-group">
+                    <label for="searchInputField">Search Product</label>
+                    <input type="text" class="form-control" id="searchInputField" name="query" {% if query %}value="{{ query }}"{% endif %}>
+                    {% if category_query %}
+                    <input type="hidden" name="category" value="{{ category_query }}">
+                    {% endif %}
+                </div>
+            </form>
+
+        </aside><!-- end sidebar -->
+        
+        <section class="col-sm-8 col-md-9">
+            <div class="row no-gutters">
+
+                {% for product in products %}
+                <div class="col-6 col-md-4 col-lg-3">
+                    <a href="{% url 'product-detail' product.product_id %}">
+                    <div class="ml-2 mt-2 product-list-item">
+                        <div class="mb-2 product-list-image-holder">
+                            <img src="{% if product.image1_link %}{{ product.image1_link }}{% else %}{% static 'img/no_image.jpg' %}{% endif %}" alt="{{ product.title }} image" class="img-fluid">
+                        </div>
+                        <div class="product-list-item-text-container px-2 pb-1">
+                            <h5>{{ product.title }}</h5>
+                            <h6>{{ product.school.name }}</h6>
+                        </div>
+                    </div><!-- end list-item -->
+                    </a>
+                </div><!-- end column -->
+                {% empty %}
+                <div class="col">
+                    <p class="text-center">No products meet your criterion</p>
+                </div>
+                {% endfor %}
+               
+                
+            </div><!-- end list row -->
+        </section><!-- end list section -->
+
+    </div><!-- end top row -->
+</div><!-- end top container -->
+
+{% endblock %}
