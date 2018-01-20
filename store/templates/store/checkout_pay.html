@@ -1,0 +1,36 @@
+{% extends 'base_template.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col col-lg-6 offset-lg-3">
+            <div class="alert alert-primary">
+
+                <h4 class="alert-heading">Make payment</h4>
+                <form action="{% url 'checkout-end' %}" method="post">
+                    {% csrf_token %}
+                    
+                    <script
+                        src="https://checkout.razorpay.com/v1/checkout.js"
+                        data-key="{{ razorpay_key_id }}"
+                        data-amount="{{ payable_amount_paise }}"
+                        data-buttontext="Pay"
+                        data-name="Uniform Hai"
+                        data-description="Unform purchase"
+                        data-prefill.name="{{ customer_name }}"
+                        data-notes.dborderid="{{ order_id }}",
+                        data-prefill.contact="{{ customer_phone_no }}",
+                        data-notes.address="{{ customer_address }}"
+                        data-theme.color="#F37254"
+                    ></script>
+
+                    <input type="hidden" name="correct_submit" value="1">
+                </form>
+
+            </div><!-- end alert -->
+        </div><!-- end col -->
+    </div><!-- end top row -->
+</div><!-- end top container -->
+
+{% endblock %}

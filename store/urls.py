@@ -13,5 +13,7 @@ urlpatterns = [
     url(r'^cart/delete/$', cart_delete_item, name="cart-delete-item"),
 
     url(r'^checkout/start/$', order_checkout_start, name="checkout-start"),
-    url(r'^checkout/confirm/$', order_checkout_confirm, name="checkout-confirm"),
+    url(r'^checkout/confirm/$', order_checkout_confirm_1, name="checkout-confirm-1"),
+    url(r'^checkout/confirm_details/$', order_checkout_confirm_2, name="checkout-confirm-2"),
+    url(r'^checkout/end/$', order_checkout_end, name="checkout-end"),
 ]

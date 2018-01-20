@@ -1,0 +1,28 @@
+{% extends 'base_template.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col col-lg-6 offset-lg-3">
+            <div class="alert alert-primary">
+
+                {% if order_success %}
+                <p>Payment successful!</p>
+                <p>We will deliver your order soon</p>
+                <p>Order id: {{ order_id }}</p>
+                <p>Order Access Token: {{ order_access_token }}</p>
+                {% endif %}
+
+                {% if order_failure %}
+                <p>We are not able to successfully receive the payment</p>
+                <p>Your money will be refunded within 6 days if amount was deducted from your account</p>
+                <p>For assistance please contact help_uniformhai@gmail.com</p>
+                {% endif %}
+
+            </div><!-- end alert -->
+        </div><!-- end col -->
+    </div><!-- end top row -->
+</div><!-- end top container -->
+
+{% endblock %}

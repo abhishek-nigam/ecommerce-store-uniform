@@ -1,0 +1,57 @@
+{% extends 'base_template.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col col-lg-6 offset-lg-3">
+            <div class="alert alert-primary">
+                <h4 class="alert-heading">Confirm order</h4>
+                
+                <br>
+
+                <h5>Customer Details:</h5>
+                <p>Customer Name: {{ customer_name }}</p>
+                <p>Customer Phone No: {{ customer_phone_no }}</p>
+                <p>Customer Address: {{ customer_address }}</p>
+
+                <br>
+
+                <h5>Order Items:</h5>
+                <div class="table-responsive">
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Product</th>
+                                <th>Size</th>
+                                <th>Quantity</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for item in cart_items_info %}
+                            <tr>
+                                <td>{{ item.product_name }}</td>
+                                <td>{{ item.product_size }}</td>
+                                <td>{{ item.instance_qty }}</td>
+                                <td>₹ {{ item.instance_total_price }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div><!-- end table responsive -->
+
+                <br>
+
+                <p>Total price: <b>₹ {{ base_amount }}</b></p>
+                <p>Taxes and merchant charges: <b>₹ {{ additional_charges }}</b></p>
+                <p>Total payable amount: <b>₹ {{ payable_amount }}</b></p>
+
+                <a href="{% url 'checkout-confirm-2' %}" class="btn btn-success">Proceed to pay</a>
+
+            </div><!-- end alert -->
+        </div><!-- end col -->
+    </div><!-- end top row -->
+</div><!-- end top container -->
+
+{% endblock %}

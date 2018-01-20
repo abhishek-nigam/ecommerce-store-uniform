@@ -7,6 +7,10 @@ from .process_views import process_get_amounts
 
 def cart_display(request):
     
+    base_amount = 0
+    additional_charges = 0
+    payable_amount = 0
+
     cart_items = []
     cart_is_empty = True
 
@@ -68,13 +72,19 @@ def cart_add_item(request):
     instance_qty = request.GET['qty']
 
     if 'user_cart' in request.session.keys():
-        if instance_id in request.session['user_cart']:
-            request.session['user_cart'][instance_id] = request.session['user_cart'][instance_id] + 1
-            request.session.modified = True
 
+        if len(request.session['user_cart']) <= 5:
+            
+            if instance_id in request.session['user_cart']:
+                request.session['user_cart'][instance_id] = request.session['user_cart'][instance_id] + 1
+                request.session.modified = True
+
+            else:
+                request.session['user_cart'][instance_id] = 1
+                request.session.modified = True
+        
         else:
-            request.session['user_cart'][instance_id] = 1
-            request.session.modified = True
+            return HttpResponse("Sorry, currently we don't support adding more than 5 types of items in cart at a time")
 
     else:
         request.session['user_cart'] = {}
