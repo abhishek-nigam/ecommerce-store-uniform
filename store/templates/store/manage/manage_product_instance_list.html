@@ -1,0 +1,63 @@
+{% extends 'store/manage/manage_base_template.html' %}
+
+{% block manage_content %}
+
+    <h3 class="text-center">Product Instance List</h3>
+    <br>
+
+    <div class="row">
+        <div class="col order-2 order-sm-1">
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Product Instace</th>
+                            <th>Availability</th>
+                            <th>Size</th>
+                            <th>Price</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for product_instance in product_instances %}
+                        <tr>
+                            <td>{{ product_instance.instance_id }}</td>
+                            <td>{{ product_instance.product.title }}</td>
+                            <td>{% if product_instance.is_available %}Available{% else %}Unavailable{% endif %}</td>
+                            <td>{{ product_instance.size }}</td>
+                            <td>{{ product_instance.price }}</td>
+                            <td>
+                                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                                    <a class="btn btn-secondary" href="">View</a>
+                                    <a class="btn btn-secondary" href="{% url 'manage-product-instance-update' product_instance.instance_id %}">Edit</a>
+                                    <a class="btn btn-secondary" href="{% url 'manage-product-instance-delete' product_instance.instance_id %}">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div><!-- end table-responsive -->
+
+        </div><!-- end main content col -->
+
+        <aside class="col-3 order-1 order-sm-2">
+            
+            <a href="{% url 'manage-product-instance-add' %}" class="btn btn-block btn-outline-success">Add product instance</a><br>
+
+            <form action="" method="get">
+                <div class="form-group">
+                    <label for="queryInput">Search</label>
+                    <input type="text" class="form-control" id="queryInput" name="query" {% if query %}value="{{ query }}"{% endif %}>
+                </div>
+            </form>
+
+        </aside><!-- end right options sidebar div -->
+
+    </div><!-- end row -->
+
+{% endblock %}

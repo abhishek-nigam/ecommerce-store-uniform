@@ -1,0 +1,59 @@
+{% extends 'store/manage/manage_base_template.html' %}
+
+{% block manage_content %}
+
+    <h3 class="text-center">School List</h3>
+    <br>
+
+    <div class="row">
+        <div class="col order-2 order-sm-1">
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <td>ID</td>
+                            <td>Name</td>
+                            <td>Coupoun Code</td>
+                            <td>Options</td>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for school in schools %}
+                        <tr>
+                            <td>{{ school.school_id }}</td>
+                            <td>{{ school.name }}</td>
+                            <td>{% if school.coupoun_code %}{{ school.coupoun_code }}{% else %}Not Set{% endif %}</td>
+                            <td>
+                                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                                    <a class="btn btn-secondary" href="">View</a>
+                                    <a class="btn btn-secondary" href="{% url 'manage-school-update' school.school_id %}">Edit</a>
+                                    <a class="btn btn-secondary" href="{% url 'manage-school-delete' school.school_id %}">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div><!-- end table-responsive -->
+
+        </div><!-- end main content col -->
+
+        <aside class="col-3 order-1 order-sm-2">
+            
+            <a href="{% url 'manage-school-add' %}" class="btn btn-block btn-outline-success">Add school</a><br>
+
+            <form action="" method="get">
+                <div class="form-group">
+                    <label for="queryInput">Search</label>
+                    <input type="text" class="form-control" id="queryInput" name="query" {% if query %}value="{{ query }}"{% endif %}>
+                </div>
+            </form>
+
+        </aside><!-- end right options sidebar div -->
+
+    </div><!-- end row -->
+
+{% endblock %}

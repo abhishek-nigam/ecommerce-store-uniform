@@ -1,0 +1,63 @@
+{% extends 'store/manage/manage_base_template.html' %}
+
+{% block manage_content %}
+
+    <h3 class="text-center">Product List</h3>
+    <br>
+
+    <div class="row">
+        <div class="col order-2 order-sm-1">
+
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Title</th>
+                            <th>School</th>
+                            <th>Category</th>
+                            <th>Availability</th>
+                            <th>Options</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for product in products %}
+                        <tr>
+                            <td>{{ product.product_id }}</td>
+                            <td>{{ product.title }}</td>
+                            <td>{{ product.school.name }}</td>
+                            <td>{{ product.category.name }}</td>
+                            <td>{% if product.is_available %}Available{% else %}Unavailable{% endif %}</td>
+                            <td>
+                                <div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+                                    <a class="btn btn-secondary" href="">View</a>
+                                    <a class="btn btn-secondary" href="{% url 'manage-product-update' product.product_id %}">Edit</a>
+                                    <a class="btn btn-secondary" href="{% url 'manage-product-delete' product.product_id %}">Delete</a>
+                                </div>
+                            </td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div><!-- end table-responsive -->
+
+        </div><!-- end main content col -->
+
+        <aside class="col-3 order-1 order-sm-2">
+            
+            <a href="{% url 'manage-product-add' %}" class="btn btn-block btn-outline-success">Add product</a><br>
+
+            <form action="" method="get">
+                <div class="form-group">
+                    <label for="queryInput">Search</label>
+                    <input type="text" class="form-control" id="queryInput" name="query" {% if query %}value="{{ query }}"{% endif %}>
+                </div>
+            </form>
+
+        </aside><!-- end right options sidebar div -->
+
+    </div><!-- end row -->
+
+{% endblock %}

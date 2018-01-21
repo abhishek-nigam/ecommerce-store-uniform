@@ -1,0 +1,28 @@
+{% extends 'base_template.html' %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+
+        <aside class="d-none d-sm-block col-sm-4 col-md-3">
+
+            <div class="list-group">
+                <a href="{% url 'manage-school-list' %}" class="list-group-item list-group-item-action">School</a>
+                <a href="{% url 'manage-category-list' %}" class="list-group-item list-group-item-action">Category</a>
+                <a href="{% url 'manage-product-list' %}" class="list-group-item list-group-item-action">Product</a>
+                <a href="{% url 'manage-product-instance-list' %}" class="list-group-item list-group-item-action">Product Instance</a>
+                <a href="" class="list-group-item list-group-item-action">Orders</a>
+            </div>
+
+        </aside>
+
+        <section class="col-sm-8 col-md-9">
+            {% block manage_content %}
+            {% endblock %}
+        </section>
+
+    </div><!-- end enclosing row -->
+</div><!-- top enclosing container -->
+
+{% endblock %}

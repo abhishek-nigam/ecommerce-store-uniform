@@ -1,0 +1,47 @@
+{% extends 'base_template.html' %}
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<div class="container">
+    <div class="row">
+        <div class="col col-md-8 offset-md-2 col-lg-4 offset-lg-4">
+
+            {% if next %}
+            <div class="alert alert-warning">
+                <h4 class="alert-heading">Permission Denied</h4>
+                <hr>
+                {% if user.is_authenticated %}
+                <p>Your account doesn't have access to this page. To proceed please login with an account that has access.</p>
+                {% else %}
+                <p>Please login to view this page.</p>
+                {% endif %}
+            </div><!-- end permission denied alert -->
+            {% endif %}
+
+            <h3>Sign In</h3>
+
+            {% if form.errors %}
+            <div class="alert alert-danger alert-dismissible fade show">
+                
+                <p>Your username and password didn't match. Please try again</p>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+
+            </div><!-- end form errors alert -->
+            {% endif %}
+
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+                {{ form|crispy }}
+                
+                <input type="submit" value="Sign In" class="btn btn-success">
+                <input type="hidden" name="next" value="{{ next }}">
+            </form>
+
+        </div><!-- end col -->
+    </div><!-- end top row -->
+</div><!-- end top container -->
+
+{% endblock %}
