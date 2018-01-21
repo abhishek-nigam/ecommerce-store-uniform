@@ -116,7 +116,7 @@ class Order(models.Model):
     """
     order_id = models.AutoField(primary_key=True) # merchant-side order id
     order_access_token = models.CharField(max_length=10) # secret string shown to user, to enquire about the order
-    timestamp = models.DateTimeField(auto_now_add=True) # time when the order was created
+    creation_timestamp = models.DateTimeField(auto_now_add=True) # time when the order was created
     base_amount = models.DecimalField(max_digits=10, decimal_places=2) # sum of prices of all order items involved
     total_amount = models.DecimalField(max_digits=10, decimal_places=2) # base_amount + gateway charges + tax
 
@@ -130,8 +130,8 @@ class Order(models.Model):
     # payment_timestamp
 
     is_fulfilled = models.BooleanField(default=False) # whether the order has been fulfilled by the merchant
-    fulfilled_by = models.ForeignKey(User, null=True, on_delete=models.SET_NULL) # which user in merchant has fulfilled the order TODO: check on_delete
-    # fulfillment_timestamp
+    fulfillment_timestamp = models.DateTimeField(null=True, blank=True)
+    fulfilled_by = models.CharField(null=True, blank=True, max_length=255)
 
     def __str__(self):
         return "Order #{0}".format(str(self.order_id))

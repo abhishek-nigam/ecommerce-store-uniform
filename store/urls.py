@@ -36,4 +36,11 @@ urlpatterns = [
     url(r'^manage/instance/add/$', manage_product_instance_add, name="manage-product-instance-add"),
     url(r'^manage/instance/(?P<pk>\d+)/update/$', manage_product_instance_update, name="manage-product-instance-update"),
     url(r'^manage/instance/(?P<pk>\d+)/delete/$', manage_product_instance_delete, name="manage-product-instance-delete"),
+
+    url(r'^manage/order/(?P<pk>\d+)/$', manage_order_detail, name="manage-order-detail"),
+    url(r'^manage/order/(?P<pk>\d+)/fulfill/$', manage_order_fulfill, name="manage-order-fulfill"),
+    url(r'^manage/order/list/new/$', manage_order_list_new, name="manage-order-list-new"),
+    url(r'^manage/order/list/fulfilled/$', manage_order_list_fulfilled, name="manage-order-list-fulfilled"),
+    url(r'^manage/order/list/abandoned/$', manage_order_list_abandoned, name="manage-order-list-abandoned"),
+    url(r'^manage/order/search/$', manage_order_search, name="manage-order-search"),
 ]

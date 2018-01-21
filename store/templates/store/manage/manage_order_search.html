@@ -1,0 +1,79 @@
+{% extends 'store/manage/manage_base_template.html' %}
+
+{% block manage_content %}
+
+    <h3 class="text-center">Order List</h3>
+    <br>
+
+    <div class="row">
+        <div class="col order-2 order-sm-1">
+
+            <form action="" class="form-inline">
+                <div class="form-group">
+                    <label for="fieldInput">Field</label>
+                    <select name="field" id="fieldInput">
+                        <option value="order_id" {% if order_id %}selected{% endif %}>Order ID</option>
+                        <option value="customer_name" {% if customer_name %}selected{% endif %}>Customer Name</option>
+                        <option value="customer_mobile_number" {% if customer_mobile_number %}selected{% endif %}>Customer Mobile No</option>
+                        <option value="fulfilled_by" {% if fulfilled_by %}selected{% endif %}>Fulfilled By</option>
+                        <option value="payment_id" {% if payment_id %}selected{% endif %}>Payment ID</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="queryInput">Value</label>
+                    <input type="text" name="query" id="queryInput" {% if query %}value="{{ query }}"{% endif %}>
+                </div>
+                <input type="submit" value="Search">
+            </form>
+
+            {% if first_load %}
+            {% else %}
+            {% if error %}
+            <p>{{ error }}</p>
+            {% else %}
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>ID</th>
+                            <th>Timestamp</th>
+                            <th>Paid Amount</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for order in orders %}
+                        <tr>
+                            <td>{{ order.order_id }}</td>
+                            <td>{{ order.creation_timestamp }}</td>
+                            <td>{{ order.total_amount }}</td>
+                            <td><a href="{% url 'manage-order-detail' order.order_id %}" class="btn btn-sm btn-warning">View</a></td>
+                        </tr>
+                        {% empty %}
+                        <td colspan="4">No orders match your search</td>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div><!-- end table-responsive -->
+            {% endif %}
+            {% endif %}
+        </div><!-- end main content col -->
+
+        <aside class="col-3 order-1 order-sm-2">
+            
+            
+
+            <div class="btn-group-vertical" role="group" aria-label="Basic example">
+                <a href="{% url 'manage-order-list-new' %}" class="btn btn-outline-info">New</a><br>
+                <a href="{% url 'manage-order-list-fulfilled' %}" class="btn btn-outline-info">Fulfilled</a><br>
+                <a href="{% url 'manage-order-list-abandoned' %}" class="btn btn-outline-info">Abandoned</a><br>
+                <a href="{% url 'manage-order-search' %}" class="btn btn-outline-info">Search Orders</a>
+            </div>
+
+        </aside><!-- end right options sidebar div -->
+
+    </div><!-- end row -->
+
+{% endblock %}

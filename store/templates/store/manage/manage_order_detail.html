@@ -1,0 +1,109 @@
+{% extends 'store/manage/manage_base_template.html' %}
+
+{% block manage_content %}
+
+    <h3 class="text-center">Order Detail</h3>
+    <br>
+
+    <div class="row">
+        <div class="col order-2 order-sm-1">
+
+            <h4>Status:</h4>
+            <h5>
+                {% if order.is_payed %}
+                    {% if order.is_captured %}
+                        {% if order.is_fulfilled %}
+                            Fulfilled<br>
+                            Fulfilled by: {{ order.fulfilled_by }}<br>
+                            Fulfilled time: {{ order.fulfillment_timestamp }}<br>
+                            Payment id: {{ order.payment_id }}
+                        {% else %}
+                            Captured but unfulfilled<br>
+                            Payment id: {{ order.payment_id }}<br>
+                            <a href="{% url 'manage-order-fulfill' order.order_id %}" class="btn btn-danger">Fulfill</a>
+                        {% endif %}
+                    {% else %}
+                    Payed but uncaptured<br>
+                    Payment id: {{ order.payment_id }}
+                    {% endif %}
+                {% else %}
+                Unpayed / Abandoned
+                {% endif %}
+            </h5>
+            <br>
+
+            <h4>Order ID:</h4>
+            <p>{{ order.order_id }}</p>
+            <br>
+
+            <h4>Order Access Token:</h4>
+            <p>{{ order.order_access_token }}</p>
+            <br>
+
+            <h4>Created On:</h4>
+            <p>{{ order.creation_timestamp }}</p>
+            <br>
+
+            <h4>Base Amount:</h4>
+            <p>{{ order.base_amount }}</p>
+            <br>
+
+            <h4>Total Amount:</h4>
+            <p>{{ order.total_amount }}</p>
+            <br>
+
+            <h4>Customer Name:</h4>
+            <p>{{ order.customer_name }}</p>
+            <br>
+
+            <h4>Customer Phone No:</h4>
+            <p>{{ order.customer_mobile_number }}</p>
+            <br>
+
+            <h4>Customer Address:</h4>
+            <p>{{ order.customer_address }}</p>
+            
+            <h4>Order Items:</h4>
+            <div class="table-responsive">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>OrderItem ID</th>
+                            <th>Product Name</th>
+                            <th>Product ID</th>
+                            <th>Quantity</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        {% for oip in order_items_products %}
+                        <tr>
+                            <td>{{ oip.order_item_id }}</td>
+                            <td>{{ oip.product_name }}</td>
+                            <td>{{ oip.product_instance_id }}</td>
+                            <td>{{ oip.order_item_qty }}</td>
+                        </tr>
+                        {% endfor %}
+
+                    </tbody>
+                </table>
+            </div><!-- end table-responsive -->
+
+        </div><!-- end main content col -->
+
+        <aside class="col-3 order-1 order-sm-2">
+            
+            
+
+            <div class="btn-group-vertical" role="group" aria-label="Basic example">
+                <a href="{% url 'manage-order-list-new' %}" class="btn btn-outline-info">New</a><br>
+                <a href="{% url 'manage-order-list-fulfilled' %}" class="btn btn-outline-info">Fulfilled</a><br>
+                <a href="{% url 'manage-order-list-abandoned' %}" class="btn btn-outline-info">Abandoned</a><br>
+                <a href="" class="btn btn-outline-info">Search Orders</a>
+            </div>
+
+        </aside><!-- end right options sidebar div -->
+
+    </div><!-- end row -->
+
+{% endblock %}
