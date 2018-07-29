@@ -14,15 +14,15 @@ This project uses [Razorpay payment gateway](https://razorpay.com).
 Make sure you add your keys and secrets in uniformhai/settings.py for payment functionalty to work.
 
 ### How to run:
-  - Make sure you have created & activated your virtualenvironment, and installed the dependencies
-  `virtualenv venv`
-  `.\venv\Scripts\activate` for Windows or `source ./venv/Scripts/activate` or Linux and macOS
-  `pip install -r requirements.txt`
-  - Make migrations, and migrate
-  `python manage.py makemigrations`
-  - Migrate changes
-  `python manage.py migrate`
-  - Finally run server
+  - Make sure you have created & activated your virtualenvironment, and installed the dependencies <br>
+  `virtualenv venv`<br>
+  `.\venv\Scripts\activate` for Windows or `source ./venv/Scripts/activate` or Linux and macOS <br>
+  `pip install -r requirements.txt` <br>
+  - Make migrations, and migrate <br>
+  `python manage.py makemigrations` <br>
+  - Migrate changes <br>
+  `python manage.py migrate` <br>
+  - Finally run server <br>
   `python manage.py runserver`
 
 ### Trobleshooting
