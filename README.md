@@ -17,16 +17,16 @@ Make sure you add your keys and secrets in uniformhai/settings.py for payment fu
   - Make sure you have created & activated your virtualenvironment, and installed the dependencies <br>
   `virtualenv venv`<br>
   `.\venv\Scripts\activate` for Windows or `source ./venv/Scripts/activate` or Linux and macOS <br>
-  `pip install -r requirements.txt` <br>
+  `pip install -r requirements.txt` <br><br>
   - Make migrations, and migrate <br>
-  `python manage.py makemigrations` <br>
+  `python manage.py makemigrations` <br><br>
   - Migrate changes <br>
-  `python manage.py migrate` <br>
+  `python manage.py migrate` <br><br>
   - Finally run server <br>
   `python manage.py runserver`
 
 ### Trobleshooting
-- If you're facing problems in making migrations after make changes to models or after pulling from GitHub, delete all files in migrations folder in your app, except `__init__.py`, and then tru to make migrations again. You can also try doing this and also deleting the database and then try making migrations, and migrate.
+- If you're facing problems in making migrations after make changes to models or after pulling from GitHub, delete all files in migrations folder in your app, except `__init__.py`, and then try to make migrations again. You can also try doing this and also deleting the database and then try making migrations, and migrate.
 
 ### Development
 Want to contribute? Great! Fork me!
